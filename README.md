@@ -2,133 +2,292 @@
 
 ## 📌 Project Overview
 
-This project analyzes personal loan data from Indian borrowers to identify patterns and factors associated with loan default risk.
+This project focuses on analyzing personal loan data to understand the factors associated with loan default risk.
 
-It follows an end-to-end data analytics workflow — from raw data assessment and cleaning to exploratory data analysis and business insights — built on a dataset of 25,000 personal loan applicants.
+The project covers the complete data analytics process starting from data assessment and cleaning to exploratory data analysis and identification of important patterns in the dataset.
+
+Machine Learning modeling and dashboard development are planned as the next stages of the project.
 
 ---
 
-## 🎯 Project Objective
+## 🎯 Objectives
 
-To analyze personal loan applicant data and identify the customer, financial, and credit behavior factors most associated with a higher risk of loan default.
+- Understand the structure and quality of the dataset
+- Perform data assessment and cleaning
+- Handle missing and invalid values
+- Perform univariate analysis
+- Perform bivariate analysis
+- Identify patterns related to loan defaults
+- Generate meaningful insights from the data
 
 ---
 
 ## 📊 Dataset
 
-The dataset contains 25,000 rows and 22 columns covering applicant demographics, employment and banking history, credit behavior, loan details, and default outcomes.
+The dataset contains information about personal loan applicants, including:
 
-Raw dataset: `data/india_personal_loan_default_risk_2026.csv`
-Cleaned dataset: `data/Cleaned_Dataset.csv`
+- Age
+- Gender
+- Marital Status
+- City Tier
+- State
+- Employment Type
+- Bank Account Vintage
+- Monthly Income
+- Existing Loans
+- Existing EMI
+- Credit Utilization
+- Credit Inquiries
+- Late Payments
+- Loan Amount
+- Loan Tenure
+- Loan Purpose
+- Collateral
+- CIBIL Score
+- Interest Rate
+- Default Risk Score
+- Default Flag
+
+### Dataset Size
+
+- Original dataset: 25,000 rows
+- Final cleaned dataset: 24,493 rows
+- Total columns: 22
 
 ---
 
-## 🔄 Project Workflow
+## 🧹 Data Cleaning
+
+The dataset was assessed for:
+
+- Missing values
+- Invalid values
+- Logical inconsistencies
+- Potential statistical outliers
+- Incorrect or inconsistent data
+
+### Major Cleaning Steps
+
+- Missing values in `num_credit_inquiries_last_6m` were handled using the median.
+- Missing values in `existing_emi_monthly_inr` were handled appropriately.
+- Customers with `existing_loans_count = 0` were assigned an existing EMI of `0`.
+- Records where `age < bank_account_vintage_years` were removed because they were logically invalid.
+- Statistical outliers were investigated but were not automatically removed when they appeared to be potentially valid observations.
+
+Final cleaned dataset:
 
 ```text
-Raw Data
-   ↓
-Data Assessment
-   ↓
-Data Cleaning
-   ↓
-Exploratory Data Analysis (Univariate)
-   ↓
-Exploratory Data Analysis (Bivariate) — in progress
-   ↓
-Data Visualization
-   ↓
-Insights & Recommendations
-```
+Rows: 24,493
+Columns: 22
 
----
 
-## 📂 Project Structure
+📈 Exploratory Data Analysis
+1. Univariate Analysis
 
-```text
-loan-default-risk-analysis/
+Univariate analysis was performed on numerical and categorical variables to understand their individual distributions and characteristics.
+
+The analysis included:
+
+Mean
+Median
+Minimum and maximum values
+Quartiles
+Standard deviation
+Skewness
+Distribution plots
+Boxplots
+Frequency analysis
+2. Bivariate Analysis
+
+Bivariate analysis was performed to understand relationships between two variables.
+
+Numerical × Numerical
+
+The following relationships were analyzed:
+
+Monthly Income vs Loan Amount
+CIBIL Score vs Interest Rate
+CIBIL Score vs Late Payments
+Monthly Income vs Existing EMI
+Existing Loans vs Existing EMI
+Credit Utilization vs CIBIL Score
+Loan Amount vs Loan Tenure
+Monthly Income vs Existing Loans
+
+Scatter plots and correlation were used to study these relationships.
+
+Categorical × Default
+
+The following relationships were analyzed:
+
+Employment Type vs Default
+Loan Purpose vs Default
+Collateral Provided vs Default
+Numerical × Default
+
+The following relationships were analyzed:
+
+Age vs Default
+CIBIL Score vs Default
+Late Payments vs Default
+Credit Utilization vs Default
+Existing Loans vs Default
+Monthly Income vs Default
+Loan Amount vs Default
+Interest Rate vs Default
+Default Risk Score vs Default
+
+Boxplots and group-wise statistical summaries were used for comparison.
+
+🔍 Key Findings
+CIBIL Score vs Default
+
+Customers with CIBIL scores below 500 had a default rate of approximately 42.6%, while customers with CIBIL scores above 770 had a default rate of 0% in this dataset.
+
+This shows a strong association between CIBIL score and loan default.
+
+Late Payments vs Default
+
+The average number of late payments was:
+
+Non-defaulted customers: 1.37
+Defaulted customers: 2.64
+
+The median was:
+
+Non-defaulted customers: 1
+Defaulted customers: 2
+
+This shows a noticeable association between late payments and default.
+
+Existing Loans vs Default
+
+The average number of existing loans was:
+
+Defaulted customers: 1.433
+Non-defaulted customers: 1.08
+
+Both groups had a median of 1 and an observed range of 0–6.
+
+The difference between the two groups was relatively small.
+
+Age vs Default
+
+The average age was:
+
+Defaulted customers: 34.89 years
+Non-defaulted customers: 35.34 years
+
+The age distributions of the two groups were quite similar.
+
+Employment Type vs Default
+
+Default rates across employment types were:
+
+Business Owner: 7.36%
+Salaried - Government: 6.72%
+Salaried - PSU: 5.62%
+Salaried - Private: 5.83%
+Self-Employed Professional: 5.50%
+Loan Purpose vs Default
+
+Default rates across loan purposes were relatively close, ranging from approximately 5.60% to 6.54%.
+
+Collateral vs Default
+
+Default rates were:
+
+Without collateral: 6.83%
+With collateral: 3.59%
+
+This indicates an observed association between collateral status and default in the dataset.
+
+🛠️ Technologies Used
+Python
+Pandas
+NumPy
+Matplotlib
+Seaborn
+Jupyter Notebook
+
+
+
+Loan Default Risk Project/
 │
 ├── data/
-│   ├── india_personal_loan_default_risk_2026.csv
+│   ├── Raw_Dataset.csv
 │   └── Cleaned_Dataset.csv
 │
 ├── notebooks/
-│   ├── 01_data_assessment.ipynb
-│   ├── 02_data_cleaning.ipynb
-│   └── 03_univariate_analysis.ipynb
+│   ├── Data_Cleaning.ipynb
+│   └── Loan_EDA.ipynb
 │
 ├── visuals/
+│   ├── univariate/
+│   ├── bivariate/
+│   └── multivariate/
 │
 ├── README.md
-├── requirements.txt
-└── .gitignore
-```
+└── requirements.txt
 
----
 
-## 🔍 Key Findings So Far
 
-**Data Quality**
-- Found and fixed 7,920 rows where `existing_loans_count = 0` but a non-zero EMI was recorded — a logical inconsistency, corrected to 0.
-- Removed 7 rows where customer age was less than their bank account vintage — physically impossible.
-- Filled missing values in `bank_account_vintage_years`, `existing_emi_monthly_inr`, and `num_credit_inquiries_last_6m` using median imputation, chosen based on distribution skew.
-- Final cleaned dataset: 24,493 rows × 22 columns (507 rows dropped/corrected).
 
-**Applicant Profile**
-- 59.7% of applicants are male, 38.4% female, 1.9% other.
-- 58.2% are married; single applicants make up 31.7%.
-- Tier 1 and Tier 2 cities account for nearly 78% of applicants combined.
-- Gujarat has the highest share of applicants (7%); all other states cluster tightly around 6.4–6.5%.
+▶️ How to Run
 
-**Loan Behavior**
-- Personal expenses are the top loan purpose (22.4%), followed by wedding expenses (13.9%) — notably higher than education loans (9.8%), pointing to significant financial pressure around wedding costs.
-- 78.2% of applicants did not provide collateral.
-- Only 6.1% of applicants defaulted, versus 93.9% who did not — a significant class imbalance that will need to be handled (e.g. SMOTE, class weighting) at the modeling stage.
+Clone the repository:
 
----
+git clone <repository-url>
+cd <repository-folder>
 
-## 🛠️ Tools and Technologies
+Install the required libraries:
 
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Jupyter Notebook
-
----
-
-## ▶️ How to Run
-
-```bash
-git clone <repo-url>
-cd loan-default-risk-analysis
 pip install -r requirements.txt
+
+Run Jupyter Notebook:
+
 jupyter notebook
-```
 
-Run the notebooks in order: `01_data_assessment.ipynb` → `02_data_cleaning.ipynb` → `03_univariate_analysis.ipynb`.
 
----
+🚧 Project Status
+Completed
+ Data Assessment
+ Data Cleaning
+ Univariate Analysis
+ Numerical × Numerical Bivariate Analysis
+ Categorical × Default Bivariate Analysis
+ Numerical × Default Bivariate Analysis
+ Key Findings
+Upcoming
+ Machine Learning Modeling
+ Model Evaluation
+ Model Comparison
+ Interactive Dashboard
+🚀 Future Scope
+Machine Learning
 
-## 🚧 Project Status
+The next stage of the project will focus on building machine learning classification models to predict loan default.
 
-**In progress** — data assessment, cleaning, and univariate EDA are complete. Bivariate/multivariate analysis and predictive modeling are next.
+This will include:
 
----
+Feature preparation
+Train-test split
+Model training
+Model evaluation
+Model comparison
+Feature importance and interpretation
+Dashboard
 
-## 📋 Roadmap
+An interactive dashboard will be developed to visualize:
 
-* [x] Data Assessment
-* [x] Data Cleaning
-* [x] Univariate Exploratory Data Analysis
-* [ ] Bivariate / Multivariate Analysis
-* [ ] Predictive Modeling (default risk classification)
-* [ ] Data Visualization Dashboard
-* [ ] Business Insights & Recommendations
+Default rates
+Customer demographics
+Credit score patterns
+Loan characteristics
+Financial behavior
+Important risk-related insights
+👤 Author
 
----
+Nayan Samadhiya
 
-## 👤 Author
-
-**Nayan Samadhiya**
+Aspiring AI/ML Engineer | Data Analytics
