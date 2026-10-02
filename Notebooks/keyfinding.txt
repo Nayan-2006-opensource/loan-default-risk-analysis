@@ -1,0 +1,80 @@
+## 💡 Business Insights & Recommendations
+
+**Strongest Predictors of Default**
+
+1. **CIBIL Score is the single strongest predictor of default risk.** Customers 
+   with a score below 500 have a 42.6% default rate, compared to 0% for those 
+   above 770. Lenders should treat sub-500 CIBIL applicants as high-risk by 
+   default and apply stricter underwriting criteria.
+
+2. **Collateral dramatically reduces default risk.** Secured loans default at 
+   3.59% versus 6.83% for unsecured loans — nearly a 2x difference, and the 
+   strongest categorical predictor found in this analysis. Offering 
+   interest rate discounts or incentives for applicants willing to provide 
+   collateral could meaningfully reduce portfolio risk.
+
+3. **Repayment history (late payments) mirrors CIBIL as a risk signal.** 
+   Customers with more than 5 late payments in the last 12 months default at 
+   42.28% — almost identical to the low-CIBIL group. This confirms that 
+   recent repayment behavior and credit score are capturing the same 
+   underlying risk, so either can serve as an early-warning flag.
+
+4. **The engineered `default_risk_score` works as intended but isn't 
+   sufficient alone.** It correlates moderately (0.485) with actual default, 
+   and the default rate climbs steadily with the score — 37.6% at score >20, 
+   rising to 66.5% at score >50. It should be used alongside CIBIL and 
+   collateral status rather than in isolation.
+
+**Moderate Risk Factors**
+
+5. **Employment type matters, particularly for business owners.** Business 
+   owners default at 7.36%, the highest of any employment category, likely 
+   due to income instability. Self-employed professionals default least 
+   (5.50%), despite having similarly variable income — suggesting business 
+   owners may carry additional risk from factors not captured here (e.g. 
+   business cycles, working capital strain).
+
+6. **Larger loan amounts correlate with higher default rates.** Defaulters 
+   requested larger loans on average (₹182,923 vs ₹156,900) — intuitive, 
+   since larger loans mean larger EMIs and tighter monthly cash flow.
+
+7. **Higher interest rates are both a cause and a symptom of risk.** 
+   Defaulters were offered meaningfully higher average rates (22.24% vs 
+   20.62%), consistent with risk-based pricing — but this also means 
+   higher-risk borrowers face a heavier repayment burden, which can itself 
+   contribute to default (a feedback loop worth monitoring).
+
+**Weak or Non-Predictive Factors**
+
+8. **Demographic factors (gender, marital status, state, city tier) show only 
+   mild variation in default rate** and should not be used as primary 
+   underwriting criteria. Where patterns do exist (e.g. Tier 1 cities having 
+   lower default rates), they likely reflect structural/economic factors 
+   (job stability, banking infrastructure) rather than individual financial 
+   responsibility, and should be interpreted accordingly.
+
+9. **Some intuitive risk signals did not hold up under scrutiny.** Customers 
+   with 6+ credit inquiries in the last 6 months had a *lower* default rate 
+   (~13%) than expected, and longer loan tenures (84 months) were associated 
+   with *lower* default rates (6.4%) than shorter ones — likely because 
+   these groups are pre-filtered by lenders to have stronger credit profiles. 
+   This is a reminder not to assume surface-level correlations without 
+   testing them.
+
+**Recommendations**
+
+- **Prioritize CIBIL score and collateral status** as the primary gatekeeping 
+  criteria in loan approval workflows — these show the clearest, most 
+  consistent separation between defaulters and non-defaulters.
+- **Treat `late_payments_last_12m` as a real-time early-warning signal** for 
+  existing borrowers, since it tracks closely with CIBIL-based risk.
+- **Apply closer scrutiny to large loan requests**, especially when paired 
+  with a mid-range CIBIL score, given the amount's independent association 
+  with default.
+- **Avoid using demographic variables (gender, marital status, state) as 
+  standalone risk factors** — the signal is weak and risks introducing bias 
+  without improving predictive accuracy.
+- **Revisit assumptions before encoding them as risk rules** — credit 
+  inquiries and loan tenure both showed counter-intuitive relationships with 
+  default, reinforcing the value of data-driven validation over 
+  assumption-based rules.
